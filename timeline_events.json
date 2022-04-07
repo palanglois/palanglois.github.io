@@ -1,0 +1,67 @@
+[
+  {
+    "date": "November 2017",
+    "title": "Beginning PhD thesis",
+    "body": "in the Imagine Group (ENPC - LIGM)"
+  },
+  {
+    "date": "July 2018",
+    "title": "Participation to <a target=\"_blank\" href=\"https://project.inria.fr/paiss/\">PAISS summer school</a>",
+    "body": "Grenoble, France"
+  },
+  {
+    "date": "July 2018",
+    "title": "Participation to <a target=\"_blank\" href=\"https://sgp2018.sciencesconf.org/\">SGP 2018</a>",
+    "body": "Paris, France"
+  },
+  {
+    "date": "January 7th, &#xa; 2019",
+    "title": "Talk \"Applications of optimal transport in machine learning\" with <a target=\"_blank\" href=\"http://imagine.enpc.fr/~groueixt/\">Thibault Groueix</a>",
+    "body": "ENPC, Paris, France <a target=\"_blank\" href=\"data/OptimalTransport.pdf\">[slides]</a>"
+  },
+  {
+    "date": "December 2018 - &#xa; May 2019",
+    "title": "Talk \"Deep Learning for 3D surface reconstruction\" with <a target=\"_blank\" href=\"http://imagine.enpc.fr/~groueixt/\">Thibault Groueix</a>",
+    "body": "December 18th: Telecom ParisTech, Paris, France <br>January 25th: IGN, Paris, France <br>January 29th: ONERA, Palaiseau, France <br>May 7th: LRI, Paris, France <a target=\"_blank\" href=\"data/DeepLearningFor3D_3.pdf\">[slides]</a>"
+  },
+  {
+    "date": "June 2019",
+    "title": "Beginning internship at <a target=\"_blank\" href=\"https://research.adobe.com/\">Adobe Research</a>",
+    "body": "San Francisco, USA"
+  }, 
+  {
+    "date": "July 2019",
+    "title": "Our paper <a target=\"_blank\" href=\"http://imagine.enpc.fr/~xiaoy/PoseFromShape/\">Pose from Shape: Deep Pose Estimation for Arbitrary 3D Objects</a> was accepted at <a target=\"_blank\" href=\"https://bmvc2019.org/\">BMVC 2019</a>",
+    "body": "BMVC 2019, Cardiff, UK"
+  }, 
+  {
+    "date": "July 2019",
+    "title": "Our paper <a href=\"http://imagine.enpc.fr/~langloip/index.html?page=line_recons\">Surface Reconstruction from 3D Line Segments</a> was accepted as an oral (Top 14%) at <a target=\"_blank\" href=\"http://3dv19.gel.ulaval.ca/\">3DV 2019</a>",
+    "body": "3DV 2019, Quebec City, Canada"
+  }, 
+  {
+    "date": "March 2021",
+    "title": "Our patent <a target=\"_blank\" href=\"https://patents.google.com/patent/US10937237B1/en\"> Reconstructing three-dimensional scenes using multi-view cycle projection</a> is published.",
+    "body": "US Patent"
+  },
+  {
+    "date": "May 2021",
+    "title": "Our paper <a target=\"_blank\" href=\"https://ieeexplore.ieee.org/abstract/document/9506425\">3D Reconstruction by Parametrized Surface Mapping</a> was accepted at <a target=\"_blank\" href=\"https://2021.ieeeicip.org/\">ICIP 2021</a>.",
+    "body": "ICIP 2021, Anchorage, USA"
+  }, 
+  {
+    "date": "October 2021",
+    "title": "Our paper <a target=\"_blank\" href=\"http://imagine.enpc.fr/~marletr/publi/3DV-2021-Boulch-et-al.pdf\">NeeDrop: Unsupervised Shape Representation from Sparse Point Clouds using Needle Dropping</> was accepted at <a target=\"_blank\" href=\"https://3dv2021.surrey.ac.uk\">3DV 2021</a>.",
+    "body": "3DV 2021, London, UK"
+  }, 
+  {
+    "date": "December 14th, &#xa; 2021",
+    "title": "I have publicly defended my thesis at Ecole des Ponts!",
+    "body": "Ecole des Ponts ParisTech, Champs-sur-Marne, France"
+  }, 
+  {
+    "date": "March, 2022", 
+    "title": "Our paper  VASAD: a Volume and Semantic dataset for Building Reconstruction from Point Clouds was accepted at <a target=\"_blank\" href=\"https://www.icpr2022.com/\">ICPR 2022</a>", 
+    "body": "ICPR 2022, Montreal, Canada"
+  }
+]

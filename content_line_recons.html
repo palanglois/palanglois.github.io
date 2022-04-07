@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<h1><a href="index.html?page=publications" class="publication-return">Publications</a> &rarr; Surface Reconstruction from Line Segments</h1>
+<h3>Paper, supplementary and citation</h3>
+<table>
+<tr>
+<td>
+  <a href="https://arxiv.org/pdf/1911.00451.pdf"><img class="border-link" src="images/line-recons-paper.png"></a>
+</td>
+<td>
+  <a href="http://imagine.enpc.fr/~langloip/data/3DV-2019-Langlois-et-al_supp.pdf"><img class="border-link" src="images/line-recons-suppl.png"></a>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+  <div class="card">
+    <div class="card-block">
+      <pre class="card-text clickselect">
+    @inproceedings{langlois:hal-02344362,
+    TITLE = {{Surface Reconstruction from 3D Line Segments}},
+    AUTHOR = {Langlois, Pierre-Alain and Boulch, Alexandre and Marlet, Renaud},
+    URL = {https://hal.archives-ouvertes.fr/hal-02344362},
+    BOOKTITLE = {{2019 International Conference on 3D Vision (3DV)}},
+    ADDRESS = {Qu{\'e}bec City, Canada},
+    PUBLISHER = {{IEEE}},
+    PAGES = {553-563},
+    YEAR = {2019},
+    MONTH = Sep,
+    DOI = {10.1109/3DV.2019.00067},
+    HAL_ID = {hal-02344362},
+    HAL_VERSION = {v1},
+    } 
+      </pre>
+    </div>
+  </div>
+</td>
+</tr>
+</table>
+<h3>Code</h3>
+On <a target="_blank" href="https://github.com/palanglois/line-surface-reconstruction">Github</a>!
+<div id="renderers-container">
+  <div title="Reconstruction example" id="container">
+    <div id="container-top">
+      <h3 id="render-title">Input lines/Output mesh example</h3>
+      Lines
+      <input id=inpWidth type=range min=-1 max=1 step=0.01 value=0 ></input>
+      Mesh
+    </div>
+  </div>
+
+</div>
+<script src="js/Detector.js"></script>
+<script src="js/three.min.js"></script>
+<script src="js/OBJLoader.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/OBMLoader.min.js"></script>
+<script>
+  if (!Detector.webgl) 
+  {
+    Detector.addGetWebGLMessage();
+  }
+
+  var container;
+  var windowX = document.getElementById("renderers-container").offsetWidth/1.2;
+  var windowY = document.getElementById("renderers-container").offsetWidth/1.2;
+
+  var camera, controls, scene, renderer;
+  var lighting, ambient, keyLight, fillLight, backLight;
+
+  init();
+  animate();
+
+  function init() 
+  {
+
+    container = document.getElementById('container');
+
+    /* Camera */
+
+    camera = new THREE.PerspectiveCamera(10, 1, 0.1, 2500);
+    camera.position.set( 5, 5, -10 );
+
+    var localPlane = new THREE.Plane( new THREE.Vector3( 1, 1, 0 ), 0. );
+    var localPlane2 = new THREE.Plane( new THREE.Vector3( -1, -1, 0 ), 0. );
+
+    /* Scene */
+
+    scene = new THREE.Scene();
+    lighting = true;
+
+    ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambient);
+
+    keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+    keyLight.position.set(-100, 0, 100);
+
+    fillLight = new THREE.DirectionalLight(0xffffff, 0.15);
+    fillLight.position.set(100, 0, 100);
+    fillLight1 = new THREE.DirectionalLight(0xffffff, 0.15);
+    fillLight.position.set(100, 50, 100);
+    fillLight2 = new THREE.DirectionalLight(0xffffff, 0.15);
+    fillLight.position.set(100, -50, 100);
+    fillLight3 = new THREE.DirectionalLight(0xffffff, 0.15);
+    fillLight.position.set(100, 50, -100);
+    fillLight4 = new THREE.DirectionalLight(0xffffff, 0.15);
+    fillLight.position.set(100, -50, -100);
+
+
+    backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    backLight.position.set(100, 0, -100).normalize();
+
+    scene.add(keyLight, fillLight, backLight , fillLight1, fillLight2, fillLight3, fillLight4);
+
+    /* Lines */
+
+    var material = new THREE.LineBasicMaterial( { 
+                       color: 0xffffff, 
+                       opacity: 0.5, 
+                       clippingPlanes: [localPlane2], 
+                       clipShadows: true
+    } );
+
+    $.ajax({
+        url: "./data/line3dpp_lines_simple.json",
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+          all_lines = data.lines;
+          geometry = new THREE.Geometry();
+          for(var i = 0, max = data.lines.length; i < max; i++)
+          {
+            var pt1 = new Object();
+            var factor = 1.3;
+            var offset = 0.015;
+            pt1.x = factor*data.lines[i][0][0] - offset;
+            pt1.y = factor*data.lines[i][0][1];
+            pt1.z = factor*data.lines[i][0][2];
+            var pt2 = new Object();
+            pt2.x = factor*data.lines[i][1][0] - offset;
+            pt2.y = factor*data.lines[i][1][1];
+            pt2.z = factor*data.lines[i][1][2];
+            geometry.vertices.push(pt1);
+            geometry.vertices.push(pt2);
+          }
+          line = new THREE.LineSegments(geometry, material);
+          scene.add(line);
+        } });
+
+    /* Model */
+
+    //objLoader = new THREE.OBJLoader();
+    objLoader = new THREE.OBMLoader();
+    objLoader.load('./data/timberframe_recons.obm', function (object) {
+	object.name = 'object';
+        object.traverse( function ( child ) {
+                           if ( child instanceof THREE.Mesh ) {
+                             child.material.clippingPlanes = [localPlane];
+                             child.material.clipShadows = true;
+                           }});
+	scene.add(object);
+    });
+
+    /* Renderer */
+
+    renderer = new THREE.WebGLRenderer();
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(windowX, windowY);
+    renderer.setClearColor(new THREE.Color("hsl(0, 100%, 1%)"));
+    renderer.localClippingEnabled = true;
+
+    container.appendChild(renderer.domElement);
+
+    /* Controls */
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.enableZoom = true;
+
+    /* Events */
+
+    window.addEventListener('resize', onWindowResize, false);
+
+    /* Gui */
+ 
+    var inpWidth = document.getElementById('inpWidth');
+    inpWidth.oninput = function () {
+                var v = inpWidth.value;
+	        localPlane.constant = v; 
+                localPlane2.constant = -v
+	    };
+
+  }
+
+  function onWindowResize() 
+  {
+    windowX = document.getElementById("renderers-container").offsetWidth / 1.2;
+    windowY = document.getElementById("renderers-container").offsetWidth / 1.2;
+
+    camera.aspect = windowX / windowY;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(windowX, windowY);
+
+  }
+
+  function animate() 
+  {
+
+    requestAnimationFrame(animate);
+
+    controls.update();
+
+    render();
+
+  }
+
+  function render() 
+  {
+    renderer.render(scene, camera);
+  }
+</script>
+
